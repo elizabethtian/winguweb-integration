@@ -17,6 +17,8 @@ Files:
    These files contain the HTML, CSS references, and jQuery for direct website integration. The form is connected to the php file, which uses the Salesforce SOAP API and the PHP toolkit to query the database for email checking and subsequently add a new Lead.
    The php file also writes the information down in the csv file as users subscribe.
 
+Note: País is a dropdown menu.
+
 ####Using an iFrame:
 
 Files:
@@ -36,3 +38,5 @@ Form 2
 
 Files:
 * A, B, C
+
+Note: País is a dropdown menu.
