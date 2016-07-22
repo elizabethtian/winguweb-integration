@@ -1,0 +1,106 @@
+<!-- 
+
+HTML, JavaScript, and external CSS stylesheet references to WinguWeb website for form one,
+which allows anyone to subscribe to Wingu's email list and creates a Lead record in
+Wingu's Salesforce database.
+
+Form One (see subscriber.php): 
+ * Queries Salesforce database to check if the subscriber email already exists.
+ * If email does not exist, creates a new Lead, adds form information to candidatos.csv,
+ * and refreshes the form page with a success alert; if email does exist, refreshes
+ * the form page with an error alert.
+
+Created by: Elizabeth Tian, ©2016
+
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- Link -->
+    <link rel="stylesheet" type="text/css" href="WW/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="WW/css/dd.css">
+    <link rel="stylesheet" type="text/css" href="WW/css/style.css?v=1.1">
+    <link rel="stylesheet" type="text/css" href="WW/css/responsive.css?v=1.1">
+
+    <script type="text/javascript" src="WW/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="WW/js/bootstrap.js"></script>
+    <script type="text/javascript" src="WW/js/jquery.dd.js"></script>
+    <script type="text/javascript" src="WW/js/retina.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+$(document).ready(function(e) {
+
+    var oDropdown = $("select").msDropdown({roundedBorder:false});
+    $("select#drop").change(function(){
+        var selectedCountry = $("#drop option:selected").val();
+    });
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+    };
+    var success = getUrlParameter('success');
+    if (success == '1') {
+        alert("Has suscrito con exito!");
+    }
+    else if (success == '0') {
+        alert("Email is already in database");
+    }
+
+});
+</script>
+
+    <!--form_section-->
+    <div class="form_section">
+        <div class="container">
+            <div class="row">
+                <h2>SUSCRÍBETE A NUESTRAS NOVEDADES</h2>
+                <form action="subscribe.php" method="post">
+                <ul>
+                    <li>
+                        <input type="text" value="Nombre" name="nombre" class="text_fld" onclick="if(this.value=='Nombre'){this.value=''}" onblur="if(this.value==''){this.value='Nombre'}">
+                    </li>
+                    <li>
+                        <input type="text" value="Apellido" name="apellido" class="text_fld" onclick="if(this.value=='Apellido'){this.value=''}" onblur="if(this.value==''){this.value='Apellido'}">
+                   </li>
+                    <li>
+                        <input type="text" value="Email" name="email" class="text_fld1" onclick="if(this.value=='Email'){this.value=''}" onblur="if(this.value==''){this.value='Email'}">
+                    <li>
+                        <input type="text" value="Organización" name="company" class="text_fld2" onclick="if(this.value=='Organización'){this.value=''}" onblur="if(this.value==''){this.value='Organización'}">
+                    </li>
+                    <li>
+                        <select name="country" class="pages" id="drop">
+                            <option value="Argentina">Argentina</option>
+                            <option value="Estados Unidos">Estados Unidos</option>
+                            <option value="Chile">Chile</option>
+                        </select>
+                    </li>
+                    <li><input type="submit" value="SUSCRÍBEME" class="btn1">
+                    </li>
+                </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--form_section end-->
+
+</body>
+</html>

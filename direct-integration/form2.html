@@ -1,0 +1,146 @@
+<!--
+
+HTML, JavaScript, and CSS for form two, which allows anyone to contact Wingu with
+an "asunto" (question/issue). It creates a new Lead in the Wingu database if
+one does not already exist.
+
+Form Two:
+ * Queries Salesforce database to check if the subscriber email already exists.
+ * If email does not exist, creates a new Lead and adds form information to candidatos.csv.
+ * Regardless if the email exists in the database, it adds form and "asunto" (issue)
+ * information to asuntos.csv, sends an HTML formatted email to info@winguweb.org with
+ * the issue information, and refreshes the page with a success message.
+
+Created by: Elizabeth Tian, ©2016
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- Link -->
+    <link rel="stylesheet" type="text/css" href="WW/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="WW/css/dd.css">
+    <link rel="stylesheet" type="text/css" href="WW/css/style.css?v=1.1">
+    <link rel="stylesheet" type="text/css" href="WW/css/responsive.css?v=1.1">
+
+    <script type="text/javascript" src="WW/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="WW/js/bootstrap.js"></script>
+    <script type="text/javascript" src="WW/js/jquery.dd.js"></script>
+    <script type="text/javascript" src="WW/js/retina.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+    var oDropdown = $("select").msDropdown({roundedBorder:false});
+    $("select#drop").change(function(){
+        var selectedCountry = $("#drop option:selected").val();
+    });
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+    };
+    var success = getUrlParameter('success');
+    if (success == '1') {
+        alert("Has enviado tu mensaje con exito!");
+    }
+    else if (success == '0') {
+        alert("Email is already in database");
+    }s
+});
+</script>
+<style>
+.write_section                               {display:block; margin:0; padding:51px 0 57px; background-color:#63b9db; width:100%;}
+.write_section h2                            {display:block; margin:0; padding:0 0 30px 0;font-family: 'Open Sans', sans-serif; font-size:33px; color:#fff; font-weight:lighter; text-align:center;}
+.write_section p                          {display:block; margin:0 0 30px 0; padding:0; font-family: 'Open Sans', sans-serif; font-size:15px; color:#fff; font-weight:lighter; text-align:center;}
+.write_section .boxit {margin: 0 auto; width: 80%;}
+.write_section .text_field                                   {margin:0 0 10px 0; padding:14.5px 18px; border:0 !important; background-color:#fff; border-radius:5px;font-family: 'Open Sans', sans-serif; font-size:16.2px; color:#B0B0B0; font-weight:lighter; width: 100%;}
+
+.write_section .dd                           {border:0; width:100% !important;}
+.write_section .dd .ddTitle                  {background:#fff;border-radius:5px; cursor:pointer;}
+.write_section .dd .ddTitle .ddTitleText     {padding:12px 18px;font-family: 'Open Sans', sans-serif; font-size:16.2px; color:#B0B0B0; font-weight:lighter;}
+.write_section .dd .ddArrow                  {background:url(../images/arrow.png) no-repeat center center #0e9fcb; right:0; top:0; width:32px; height:100%; margin:0;border-radius:0px 5px 5px 0;}
+.write_section .dd .divider                  {display:none;}
+.write_section .ddcommon ul                  {padding:0;}
+.write_section .dd .ddChild li               {display:block; float:none;  margin:0;}
+
+.write_section .btn1                                       {display:block; width: 60%; margin:40px auto; padding:14px 15px; border:0 !important; background-color:#ef8b1f; border-radius:5px;font-family: 'Open Sans', sans-serif; font-size:16px; color:#fff; font-weight:normal;transition:all ease-in-out .2s; -moz-transition:all ease-in-out .2s; -ms-transition:all ease-in-out .2s; -o-transition:all ease-in-out .2s; -webkit-transition:all ease-in-out .2s;}
+.write_section .btn1:hover                                 {background-color:#ed7000;}
+.write_section .mensaje {margin:0 0 10px 0; padding:12px 18px; border:0 !important; background-color:#fff; border-radius:5px;font-family: 'Open Sans', sans-serif; font-size:16.2px; color:#B0B0B0; font-weight:lighter; width: 100%;}
+
+</style>
+    <!--form_section-->
+    <div class="write_section">
+        <div class="container">
+            <div class="row">
+                <h2>ESCRÍBENOS</h2>
+                <p>Contáctanos directamente o envía tu mensaje junto con tus datos a través del formulario.<br>Te responderemos a la brevedad!</p>
+                <form action="subscribe.php" method="post">
+                <div class="boxit row">
+                    <!--Left side-->
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <input type="text" value="Nombre" name="write_nombre" class="text_field" onclick="if(this.value=='Nombre'){this.value=''}" onblur="if(this.value==''){this.value='Nombre'}">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" value="Apellido" name="write_apellido" class="text_field" onclick="if(this.value=='Apellido'){this.value=''}" onblur="if(this.value==''){this.value='Apellido'}">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" value="Email" name="write_email" class="text_field" onclick="if(this.value=='Email'){this.value=''}" onblur="if(this.value==''){this.value='Email'}">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" value="Organización" name="write_company" class="text_field" onclick="if(this.value=='Organización'){this.value=''}" onblur="if(this.value==''){this.value='Organización'}">
+                        </div>
+                        <ul>
+                            <li class="col-md-12">
+                                <select name="write_country" class="pages" id="drop">
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Estados Unidos">Estados Unidos</option>
+                                    <option value="Chile">Chile</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Right side -->
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <input type="text" value="Asunto" name="write_asunto" class="text_field" onclick="if(this.value=='Asunto'){this.value=''}" onblur="if(this.value==''){this.value='Asunto'}">
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="mensaje" name="write_mensaje" rows="9" onclick="if(this.value=='Mensaje'){this.value=''}" onblur="if(this.value==''){this.value='Mensaje'}">Mensaje</textarea>
+                        </div>                    
+                    </div>
+
+                </div>
+                <div class="boxit row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="ENVIAR" class="btn1">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--form_section end-->
+
+</body>
+</html>
