@@ -14,8 +14,7 @@ Form 1
 Files:
 * subscribe.php, form.html, candidatos.csv
 
-   These files contain the HTML, CSS references, and JavaScript for direct website integration. The form is connected to the PHP file subscribe.php, which uses the Salesforce SOAP API and the PHP toolkit to connect to a Salesforce org. The file queries the database using SOQL for email matching and subsequently adds a new Lead record in Salesforce if no email already exists.
-   subscribe.php also adds information to the CSV file candidatos.csv as new Lead records are added.
+   These files contain the HTML, CSS references, and JavaScript for direct website integration. The form is connected to the PHP file subscribe.php, which uses the Salesforce SOAP API and the PHP toolkit to connect to a Salesforce org. The file queries the database using SOQL for email matching and subsequently adds a new Lead record in Salesforce if no email already exists. subscribe.php also adds information to the CSV file candidatos.csv as new Lead records are added.
 
 Note: País is a dropdown menu.
 
@@ -39,13 +38,11 @@ Form 2
 Files:
 * subscribe.php, form2.html, asuntos.csv, email.php, email.html
 
-   These files contain the HTML, JavaScript, and CSS for form two, which allows anyone to contact Wingu with an "asunto" (question/issue). The form is connected to the PHP file subscribe.php,  which uses the Salesforce SOAP API and the PHP toolkit to connect to a Salesforce org. The file queries the database using SOQL for email matching and subsequently adds a new Lead if no email already exists.
-   subscribe.php adds information to the CSV file candidatos.csv as new Lead records are added and adds "asunto" information to the CSV file asuntos.csv each time the form is filled out.
-   subscribe.php also sends a HTML formatted email (which can be found in email.php and email.html) to info@winguweb.ord with the issue information. 
+   These files contain the HTML, JavaScript, and CSS for form two, which allows anyone to contact Wingu with an "asunto" (question/issue). The form is connected to the PHP file subscribe.php,  which uses the Salesforce SOAP API and the PHP toolkit to connect to a Salesforce org. The file queries the database using SOQL for email matching and subsequently adds a new Lead if no email already exists. subscribe.php adds information to the CSV file candidatos.csv as new Lead records are added and adds "asunto" information to the CSV file asuntos.csv each time the form is filled out. subscribe.php also sends a HTML formatted email (which can be found in email.php and email.html) to info@winguweb.org with the issue information. 
 
 Note: País is a dropdown menu.
 
 ####Email: 
 
-<img src="https://raw.github.com/elizabethtian/winguweb-integration/master/img/email.png"/>
+<img src="https://raw.github.com/elizabethtian/winguweb-integration/master/img/email.png" height=300px/>
 
